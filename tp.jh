@@ -1,0 +1,105 @@
+
+entity Voo {
+	idVoo Int,
+    dataPartida Date,
+    horaPartida Date,
+    dayaChegada Date,
+    horaCHegada Date
+}
+
+entity Aeroporto{
+	idAeroporto Int,
+    pais String,
+    cidade String,
+    morada String
+}
+
+entity Bilhete {
+	idBilhete Int,
+    tipoBilhete String,
+    idCliente Int,
+    preco Double,
+    pesoMax Double
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Cliente {
+	idCliente Int,
+	nome String,
+    genero Boolean,
+    morada String,
+    contacto Int,
+    codigoPostal String
+}
+
+entity Promocao {
+	idPromocao Int,
+    desconto Int
+}
+
+/**
+ * Task entity.
+ * @author The JHipster team.
+ */
+entity Aviao {
+	idAviao Int,
+    dataCompra Date,
+    marca String,
+    peso Double
+}
+
+/**
+ * The Employee entity.
+ */
+entity Carga {
+	/**
+	* The firstname attribute.
+	*/
+	idCarga Int,
+    peso Double
+}
+
+entity Staff {
+	idStaff Int,
+	cargo String,
+	nome String,
+    contacto Int
+}
+
+
+relationship OneToOne {
+	Promocao{Bilhete} to Bilhete
+}
+
+relationship ManyToMany {
+	Aviao{Carga} to Carga
+
+}
+
+relationship OneToOne {
+	Bilhete{Cliente} to Cliente
+}
+
+relationship ManyToMany{
+	Voo{Aeroporto} to Aeroporto
+    Voo{Bilhete} to Bilhete
+    Voo{Aviao} to Aviao
+}
+
+// defining multiple oneToOne relationships
+relationship OneToOne {
+	Aviao{Staff} to Staff
+}
+
+// Set pagination options
+paginate Voo, Aeroporto with infinite-scroll
+paginate Bilhete with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
